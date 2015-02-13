@@ -40,17 +40,20 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/elements/{,*/}*.html',
           '{.tmp,<%= yeoman.app %>}/elements/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/css/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '{.tmp,<%= yeoman.app %>}/js/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.js','<%= yeoman.app %>/js/{,*/}*.js'],
         tasks: ['jshint']
       },
       styles: {
         files: [
           '<%= yeoman.app %>/styles/{,*/}*.css',
+          '<%= yeoman.app %>/css/{,*/}*.css',
           '<%= yeoman.app %>/elements/{,*/}*.css'
         ],
         tasks: ['copy:styles', 'autoprefixer:server']
@@ -58,6 +61,7 @@ module.exports = function (grunt) {
       sass: {
         files: [
           '<%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
+          '<%= yeoman.app %>/css/{,*/}*.{scss,sass}',
           '<%= yeoman.app %>/elements/{,*/}*.{scss,sass}'
         ],
         tasks: ['sass:server', 'autoprefixer:server']
@@ -75,7 +79,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['styles/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
+          src: ['styles/{,*/}*.{scss,sass}', 'css/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
           dest: '<%= yeoman.dist %>',
           ext: '.css'
         }]
@@ -84,7 +88,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['styles/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
+          src: ['styles/{,*/}*.{scss,sass}', 'css/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
           dest: '.tmp',
           ext: '.css'
         }]
@@ -115,7 +119,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -168,6 +172,7 @@ module.exports = function (grunt) {
       },
       all: [
         '<%= yeoman.app %>/scripts/{,*/}*.js',
+        '<%= yeoman.app %>/js/{,*/}*.js',
         '!<%= yeoman.app %>/scripts/vendor/*',
         'test/spec/{,*/}*.js'
       ]
@@ -180,7 +185,7 @@ module.exports = function (grunt) {
     },
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      css: ['<%= yeoman.dist %>/styles/{,*/}*.css', '<%= yeoman.dist %>/css/{,*/}*.css'],
       options: {
         dirs: ['<%= yeoman.dist %>'],
         blockReplacements: {
@@ -250,7 +255,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>',
           dest: '.tmp',
-          src: ['{styles,elements}/{,*/}*.css']
+          src: ['{styles,css,elements}/{,*/}*.css']
         }]
       }
     },
