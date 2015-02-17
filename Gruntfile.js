@@ -79,7 +79,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['styles/{,*/}*.{scss,sass}', 'css/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}'],
+          src: ['styles/{,*/}*.{scss,sass}', 'css/{,*/}*.{scss,sass}', 'elements/{,*/}*.{scss,sass}','bower_components/{,*/}*.{scss,sass}'],
           dest: '<%= yeoman.dist %>',
           ext: '.css'
         }]
@@ -246,8 +246,16 @@ module.exports = function (grunt) {
             'elements/**',
             '!elements/**/*.scss',
             'images/{,*/}*.{webp,gif}',
-            'bower_components/**'
+            'bower_components/**',
+            'bower_components/font-awesome/fonts/**'
           ]
+        }, {
+            //for font-awesome
+            expand: true,
+            dot: true,
+            cwd: 'bower_components/font-awesome',
+            src: ['fonts/*.*'],
+            dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {

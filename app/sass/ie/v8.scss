@@ -13,7 +13,7 @@
 	article
 	{
 	}
-	
+
 		section > .last-child,
 		article > .last-child
 		{
@@ -25,25 +25,25 @@
 		{
 			margin-bottom: 0;
 		}
-			
+
 /* Banner */
 
 	#banner {
-		background-image: url('../../images/banner.jpg');
+		background-image: url('../../images/bishop-527.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: auto;
 		-ms-behavior: url('css/ie/backgroundsize.min.htc');
-	
+
 		.inner {
 			background: $color-banner-inner-bg;
 		}
 	}
-	
+
 /* CTA  */
 
 	#cta {
-		background-image: url('../../images/banner.jpg');
+		background-image: url('../../images/bishop-527.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: auto;
