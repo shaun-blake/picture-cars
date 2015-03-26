@@ -76,8 +76,10 @@
 
 				<header class="special container">
 					<span class="icon fa-envelope"></span>
-					<h2>Get In Touch</h2>
-					<p>Use the form below to give /dev/null a piece of your mind.</p>
+					<h2>Ready to Get Started?</h2>
+						<p class="container 75%">Use the form below to indicate the date and car you're interested in
+							and we'll contact you within 1 (or whatever) business day to help
+							make your event even more special.</p>
 				</header>
 
 				<!-- One -->
@@ -86,6 +88,57 @@
 						<!-- Content -->
 							<div class="content">
 								<form>
+									<style>
+									input[type="date"]::-webkit-calendar-picker-indicator{
+										display:inline-block;
+										margin-top:2%;
+										float:right;
+									}
+									input[type="date"]::-webkit-inner-spin-button {
+										display: none;
+										margin: 0;
+									}
+									.custom-dropdown::before,
+									.custom-dropdown::after {
+											content: "";
+											position: absolute;
+											pointer-events: none;
+									}
+
+									.custom-dropdown::after { /*  Custom dropdown arrow */
+											content: "\25BC";
+											height: 1em;
+											font-size: .625em;
+											line-height: 1;
+											right: 1.2em;
+											top: 50%; margin-top: -.5em;
+									}
+
+									.custom-dropdown::before { /*  Custom dropdown arrow cover */
+											width: 2em;
+											right: 0; top: 0; bottom: 0;
+											border-radius: 0 3px 3px 0;
+									}
+									</style>
+									<div class="row 50%">
+										<div class="6u" style="text-align:left">
+											<label for="date" >Preferred Date</label>
+											<input type="date" name="date" placeholder="Preferred Date" />
+										</div>
+										<div class="6u" style="text-align:left">
+											<label for="car" >Preferred Car</label>
+												<select name="car" style="display: inline; width:98%; line-height: 1em;padding: 17px 14px;" placeholder="Preferred Car">
+													<option value="car1">Bus</option>
+													<option value="car2">Vintage</option>
+													<option value="car3">James Bond</option>
+													<option value="car4">The Other Old One</option>
+												</select>
+											<label for="car" style="margin-left:-2em; pointer-events: none;">&#9660;</label>
+										</div>
+									</div>
+									<div class="row 50%">
+
+									</div>
 									<div class="row 50%">
 										<div class="6u 12u(mobile)">
 											<input type="text" name="name" placeholder="Name" />
@@ -96,12 +149,7 @@
 									</div>
 									<div class="row 50%">
 										<div class="12u">
-											<input type="text" name="subject" placeholder="Subject" />
-										</div>
-									</div>
-									<div class="row 50%">
-										<div class="12u">
-											<textarea name="message" placeholder="Message" rows="7"></textarea>
+											<textarea name="notes" placeholder="Additional Notes" rows="7"></textarea>
 										</div>
 									</div>
 									<div class="row">
