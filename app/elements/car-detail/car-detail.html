@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-icons/core-icons.html">
 <link rel="import" href="../../bower_components/core-image/core-image.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <polymer-element name="car-detail" attributes="name, teaser, description, url show">
   <template>
@@ -8,18 +10,14 @@
       :host {
         display: block;
       }
-      paper-dialog {
-        margin-top: 50px;
-      }
     </style>
     <paper-dialog id="dialog" backdrop transition="core-transition-center" on-core-overlay-close-completed="{{closed}}" layered="true">
-
-      <core-image style="background-color: lightgray;" preload fade src="{{url}}"></core-image>
-      <p>Image 1</p>
-
-      <core-image style="width:80%; background-color: lightgray;"
-      sizing="cover" preload fade src="{{url}}"></core-image>
-      <p>Image 2</p>
+      <div horizontal end-justified layout>
+          <paper-icon-button icon="close" on-click="{{toggle}}"></paper-icon-button>
+      </div>
+      <div horizontal center-justified layout>
+          <core-image style="width:80%; height:400px;" sizing="cover" src="{{url}}"></core-image>
+      </div>
       <header>
         <h3>{{name}}</h3>
       </header>

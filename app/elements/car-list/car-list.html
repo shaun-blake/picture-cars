@@ -58,7 +58,9 @@
         this.$.carDetail.teaser = newModel.gsx$teaser.$t;
         this.$.carDetail.description = newModel.gsx$description.$t;
         this.$.carDetail.url = newModel.gsx$url.$t;
-        this.$.carDetail.toggle();
+        this.async(function() {
+            this.$.carDetail.toggle();
+        });
       }
     },
     clearSelection: function(e) {
