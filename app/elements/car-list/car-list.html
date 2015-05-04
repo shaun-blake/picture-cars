@@ -21,13 +21,14 @@
     <google-sheets id="carsSheet" key="1sV_m8j7_l9HH9mXLPEKCkzbF0QKFfl48PhjzcnjeVkg" tabid="1" published></google-sheets>
     <!--Not sure why this class="row" fixes the core-list height issue but I guess that's okay.-->
     <div class="row">
-      <core-list id="list" data="{{data}}" selectionEnabled="true" selection="{{selection}}" flex height="1" width="490" grid="true" style="width: 100%;">
+      <core-list id="list" data="{{data}}" selectionEnabled="true" selection="{{selection}}" flex height="1" width="320" grid="true" style="width: 100%;">
         <template>
           <car-summary
               name="{{model.gsx$name.$t}}"
               teaser="{{model.gsx$teaser.$t}}"
               description="{{model.gsx$description.$t}}"
-              url="{{model.gsx$url.$t}}">
+              url="{{model.gsx$url.$t}}"
+              style="width:320px">
           </car-summary>
         </template>
       </core-list>
