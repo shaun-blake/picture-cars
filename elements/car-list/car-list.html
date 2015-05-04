@@ -38,6 +38,10 @@
   <script>
   Polymer({
     data: null,
+    ready: function() {
+
+
+    },
     domReady: function() {
       var self = this;
       this.$.carsSheet.addEventListener('google-sheet-data', function(e) {
@@ -58,7 +62,9 @@
         this.$.carDetail.teaser = newModel.gsx$teaser.$t;
         this.$.carDetail.description = newModel.gsx$description.$t;
         this.$.carDetail.url = newModel.gsx$url.$t;
-        this.$.carDetail.toggle();
+        this.async(function() {
+            this.$.carDetail.toggle();
+        });
       }
     },
     clearSelection: function(e) {
