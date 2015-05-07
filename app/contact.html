@@ -73,7 +73,7 @@
 
 						<!-- Content -->
 							<div class="content">
-								<form id="contact" method="post" action="https://docs.google.com/forms/d/14TPVIKJoiF45PGJKHJmStLX5sWi0UIHaqdnLUZPn7fY/formResponse">
+								<form id="contact" method="post" action="">
 									<style>
 									input[type="date"]::-webkit-calendar-picker-indicator{
 										display:inline-block;
@@ -169,29 +169,89 @@
 
 			</footer>
 
+			<core-ajax
+				id="contactFormRequest"
+				url="https://docs.google.com/forms/d/14TPVIKJoiF45PGJKHJmStLX5sWi0UIHaqdnLUZPn7fY/formResponse"
+				method="post"
+				headers='{"Content-type": "application/x-www-form-urlencoded"}'
+				handleAs="text"></core-ajax>
+
+				<paper-toast id="success" role="alert" text="Message recieved :)"></paper-toast>
+				<paper-action-dialog
+						id="responseErrorDialog"
+						backdrop="true"
+						layered="true"
+						autoCloseDisabled="true"
+						heading="There was an error trying to contact us!">
+					<p>:( Please try again or use our
+						<a href="https://docs.google.com/forms/d/14TPVIKJoiF45PGJKHJmStLX5sWi0UIHaqdnLUZPn7fY/viewform" target="_blank">Google Form</a>
+					</p>
+					<paper-button affirmative>OK</paper-button>
+				</paper-action-dialog>
+
 			<script type="text/javascript">
+
 				var form = document.getElementById("contact");
+
 				form.onsubmit = function (e) {
 					e.preventDefault();
 
-					var data = "";
-					for (var i = 0, ii = form.length; i < ii; ++i) {
-						var input = form[i];
-						if (input.name) {
-							data += input.name + "=" + input.value + "&";
-						}
+					var requestBody = "";
+
+					var date = document.getElementById("date");
+					requestBody += date.name + "=" + date.value;
+					var car = document.getElementById("car");
+					requestBody += "&" + car.name + "=" + car.value;
+					var name = document.getElementById("name");
+					requestBody += "&" + name.name + "=" + name.value;
+					var email = document.getElementById("email");
+					requestBody += "&" + email.name + "=" + email.value;
+					var notes = document.getElementById("notes");
+					requestBody += "&" + notes.name + "=" + notes.value;
+
+					//plus the ifq
+					requestBody += "&ifq";
+
+					var contactFormRequest = document.getElementById("contactFormRequest");
+					contactFormRequest.body = requestBody;
+
+					contactFormRequest.addEventListener('core-response', function(event) {
+						document.getElementById("success").show();
+					});
+
+					contactFormRequest.addEventListener('core-error', function(event) {
+						//document.getElementById("responseErrorDialog").open();
+						//The request does succeed in completing the form but returns an error
+						//and logs a cross-origin error in the console.
+						//We'll have to rely on analytics to make sure we aren't missing
+						//any cases where there is a real error and we message that it succeeded.
+						document.getElementById("success").show();
+					});
+
+					contactFormRequest.go();
+
+
+					// e.preventDefault();
+					//
+					// var data = "";
+					// for (var i = 0, ii = form.length; i < ii; ++i) {
+					// 	var input = form[i];
+					// 	if (input.name) {
+					// 		data += input.name + "=" + input.value + "&";
+					// 	}
+					// }
+					//
+					// var xhr = new XMLHttpRequest();
+					// xhr.open(form.method, form.action, true);
+					// xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					//
+					// //xhr.send(data + "ifq");
+					//
+					// xhr.onloadend = function () {
+					// 	console.log("Done");
+					// };
+
 				}
-
-				var xhr = new XMLHttpRequest();
-				xhr.open(form.method, form.action, true);
-				xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-
-				xhr.send(data + "ifq");
-
-				xhr.onloadend = function () {
-					console.log("Done");
-				};
-			}
 		</script>
 
 	</body>
