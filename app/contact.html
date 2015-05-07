@@ -226,6 +226,11 @@
 						//We'll have to rely on analytics to make sure we aren't missing
 						//any cases where there is a real error and we message that it succeeded.
 						document.getElementById("success").show();
+						date.value = "";
+						car.selectedIndex = 0;
+						name.value = "";
+						email.value = "";
+						notes.value = "";
 					});
 
 					contactFormRequest.go();
