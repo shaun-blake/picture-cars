@@ -19,8 +19,6 @@
 		<link rel="import" href="elements/elements.html">
 		<!-- endbuild-->
 
-		<link rel="import" href="imports/fav-icons/fav-icons.html">
-
 		<!-- build:js scripts/vendor.js -->
 		<script src="scripts/vendor/jquery.min.js"></script>
 		<script src="scripts/vendor/jquery.dropotron.min.js"></script>
@@ -109,11 +107,11 @@
 									<div class="row 50%">
 										<div class="6u" style="text-align:left">
 											<label for="date" >Preferred Date</label>
-											<input id="date" type="date" name="entry.1392982227" placeholder="Preferred Date" />
+											<input id="date" type="date" name="date" placeholder="Preferred Date" />
 										</div>
 										<div class="6u" style="text-align:left">
 											<label for="car" >Preferred Car</label>
-												<select id="car" name="entry.1891941810" style="display: inline; width:98%; line-height: 1em;padding: 17px 14px;" placeholder="Preferred Car">
+												<select id="car" name="car" style="display: inline; width:98%; line-height: 1em;padding: 17px 14px;" placeholder="Preferred Car">
 													<option value="Car 1">Bus</option>
 													<option value="Car 2">Vintage</option>
 													<option value="Car 3">James Bond</option>
@@ -127,21 +125,21 @@
 									</div>
 									<div class="row 50%">
 										<div class="6u 12u(mobile)">
-											<input id="name" type="text" name="entry.680335820" placeholder="Name" />
+											<input id="name" type="text" name="name" placeholder="Name" />
 										</div>
 										<div class="6u 12u(mobile)">
-											<input id="email" type="text" name="entry.1143823494" placeholder="Email" />
+											<input id="email" type="text" name="email" placeholder="Email" />
 										</div>
 									</div>
 									<div class="row 50%">
 										<div class="12u">
-											<textarea id="notes" name="entry.2043582273" placeholder="Additional Notes" rows="7"></textarea>
+											<textarea id="notes" name="notes" placeholder="Additional Notes" rows="7"></textarea>
 										</div>
 									</div>
 									<div class="row">
 										<div class="12u">
 											<ul class="buttons">
-												<li><input type="submit" class="special" value="Send Message" /></li>
+												<li><input type="submit" class="special" value="Send Message" /> <paper-spinner id="spinner"></paper-spinner></li>
 											</ul>
 										</div>
 									</div>
@@ -171,10 +169,10 @@
 
 			<core-ajax
 				id="contactFormRequest"
-				url="https://docs.google.com/forms/d/14TPVIKJoiF45PGJKHJmStLX5sWi0UIHaqdnLUZPn7fY/formResponse"
+				url="https://script.google.com/macros/s/AKfycbzfFcpyBLKVWS5UNiGBxDUs6b50tThZcIbG4U4AJ2Bhnbd_CJk/exec"
 				method="post"
 				headers='{"Content-type": "application/x-www-form-urlencoded"}'
-				handleAs="text"></core-ajax>
+				handleAs="json"></core-ajax>
 
 				<paper-toast id="success" role="alert" text="Message recieved :)"></paper-toast>
 				<paper-action-dialog
@@ -194,6 +192,10 @@
 				var form = document.getElementById("contact");
 
 				form.onsubmit = function (e) {
+
+					var spinner = document.getElementById("spinner");
+					spinner.active = true;
+
 					e.preventDefault();
 
 					var requestBody = "";
@@ -209,28 +211,22 @@
 					var notes = document.getElementById("notes");
 					requestBody += "&" + notes.name + "=" + notes.value;
 
-					//plus the ifq
-					requestBody += "&ifq";
-
 					var contactFormRequest = document.getElementById("contactFormRequest");
 					contactFormRequest.body = requestBody;
 
 					contactFormRequest.addEventListener('core-response', function(event) {
-						document.getElementById("success").show();
-					});
-
-					contactFormRequest.addEventListener('core-error', function(event) {
-						//document.getElementById("responseErrorDialog").open();
-						//The request does succeed in completing the form but returns an error
-						//and logs a cross-origin error in the console.
-						//We'll have to rely on analytics to make sure we aren't missing
-						//any cases where there is a real error and we message that it succeeded.
+						spinner.active = false;
 						document.getElementById("success").show();
 						date.value = "";
 						car.selectedIndex = 0;
 						name.value = "";
 						email.value = "";
 						notes.value = "";
+					});
+
+					contactFormRequest.addEventListener('core-error', function(event) {
+						spinner.active = false;
+						document.getElementById("responseErrorDialog").open();
 					});
 
 					contactFormRequest.go();

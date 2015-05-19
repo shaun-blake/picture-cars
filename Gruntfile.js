@@ -343,8 +343,9 @@ module.exports = function (grunt) {
     'autoprefixer',
     'uglify',
     'vulcanize',
-    'usemin',
-    'minifyHtml'
+    'usemin'
+    /*Breaks the contact page for some reason*/
+    /*,'minifyHtml'*/
   ]);
 
   grunt.registerTask('default', [
